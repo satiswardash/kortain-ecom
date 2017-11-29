@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "135369350607",
+    "firebase_url": "https://kortain-ecommerce-application.firebaseio.com",
+    "project_id": "kortain-ecommerce-application",
+    "storage_bucket": "kortain-ecommerce-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135369350607:android:63e814f6824cced6",
+        "android_client_info": {
+          "package_name": "com.kortain.enterprise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135369350607-phg8gdjac59k2v5m78jgrd7fbtfmu6q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgEBfwWN1cXK-R7Q0vcjo5gV7idjsFs1E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
