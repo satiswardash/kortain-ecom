@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "135369350607-bsblh1evutl8io3cmob2asphnl42bq4l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kortain.enterprise",
+            "certificate_hash": "029503063151abcd218d8adb03b64312fd5dbf33"
+          }
+        },
+        {
           "client_id": "135369350607-phg8gdjac59k2v5m78jgrd7fbtfmu6q5.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135369350607-phg8gdjac59k2v5m78jgrd7fbtfmu6q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

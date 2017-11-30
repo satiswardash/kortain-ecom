@@ -12,9 +12,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ExpandableListView;
+
+import com.kortain.enterprise.adapters.DrawerExpandableListAdapter;
+import com.kortain.enterprise.models.DrawerMenuItem;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    List<DrawerMenuItem> listDataHeader;
+    HashMap<DrawerMenuItem, List<String>> listDataChild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,33 +34,32 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        toggle.syncState();*/
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ExpandableListView expandableListView = (ExpandableListView)findViewById(R.id.drawer_list_view);
+
+        prepareListData();
+        DrawerExpandableListAdapter adapter =
+                new DrawerExpandableListAdapter(this, expandableListView, listDataHeader, listDataChild);
+
+        expandableListView.setAdapter(adapter);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
+        }*/
     }
 
     @Override
@@ -80,22 +90,54 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+       // DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void prepareListData() {
+        listDataHeader = new ArrayList<DrawerMenuItem>();
+        listDataChild = new HashMap<DrawerMenuItem, List<String>>();
+
+        DrawerMenuItem item1 = new DrawerMenuItem();
+        item1.setItemName("heading1");
+        item1.setImageId(R.drawable.ic_menu_camera);
+        listDataHeader.add(item1);
+
+        DrawerMenuItem item2 = new DrawerMenuItem();
+        item2.setItemName("heading2");
+        item2.setImageId(R.drawable.ic_menu_camera);
+        listDataHeader.add(item2);
+
+        DrawerMenuItem item3 = new DrawerMenuItem();
+        item3.setItemName("heading3");
+        item3.setImageId(R.drawable.ic_menu_camera);
+        listDataHeader.add(item3);
+
+        DrawerMenuItem item4 = new DrawerMenuItem();
+        item4.setItemName("heading4");
+        item4.setImageId(R.drawable.ic_menu_camera);
+        listDataHeader.add(item4);
+
+        DrawerMenuItem item5 = new DrawerMenuItem();
+        item5.setItemName("heading5");
+        item5.setImageId(R.drawable.ic_menu_camera);
+        listDataHeader.add(item5);
+
+        // Adding child data
+        List<String> heading1 = new ArrayList<String>();
+        heading1.add("Submenu item 1");
+
+        List<String> heading2 = new ArrayList<String>();
+        heading2.add("Submenu item 1");
+        heading2.add("Submenu item 2");
+        heading2.add("Submenu item 3");
+
+        listDataChild.put(listDataHeader.get(0), heading1);// Header, Child data
+        listDataChild.put(listDataHeader.get(1), heading2);
+        listDataChild.put(listDataHeader.get(2), heading2);
+        listDataChild.put(listDataHeader.get(3), heading1);
+        listDataChild.put(listDataHeader.get(4), heading1);
+
     }
 }
