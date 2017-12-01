@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
     tools:context="com.kortain.enterprise.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/navigation_home_recyclerview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:clipChildren="true"
-        android:clipToPadding="true"
+        android:background="@color/colorCardBackground"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
