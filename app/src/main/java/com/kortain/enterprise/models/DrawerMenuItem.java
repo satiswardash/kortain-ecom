@@ -7,7 +7,7 @@ package com.kortain.enterprise.models;
 public class DrawerMenuItem {
 
     private String itemName = "";
-    private int imageId = -1;
+    private String imageId = "";
 
     public String getItemName() {
         return itemName;
@@ -17,11 +17,11 @@ public class DrawerMenuItem {
         this.itemName = itemName;
     }
 
-    public int getImageId() {
+    public String getImageId() {
         return imageId;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(String imageId) {
         this.imageId = imageId;
     }
 }

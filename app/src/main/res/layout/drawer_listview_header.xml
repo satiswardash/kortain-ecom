@@ -6,20 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/drawer_list_view_image"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="24dp"
-        app:srcCompat="@mipmap/ic_burger_round"/>
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="32dp"
+        app:srcCompat="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/drawer_list_view_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="24dp"
-        android:layout_gravity="center"
-        android:text="Header 1" />
+        android:fontFamily="cursive"
+        android:text="Header 1"
+        android:textColor="@color/colorAccent"
+        android:layout_marginLeft="16dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        />
 </LinearLayout>

@@ -2,6 +2,8 @@ package com.kortain.enterprise.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,9 @@ import android.widget.TextView;
 
 import com.kortain.enterprise.R;
 import com.kortain.enterprise.models.DrawerMenuItem;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,18 +82,22 @@ public class DrawerExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
-        DrawerMenuItem menuItem = mMenuItemList.get(groupPosition);
+        final DrawerMenuItem menuItem = mMenuItemList.get(groupPosition);
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) this.mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.drawer_listview_header, null);
         }
 
         TextView lblListHeader = convertView.findViewById(R.id.drawer_list_view_header);
-        ImageView headerIcon = convertView.findViewById(R.id.drawer_list_view_image);
+        final ImageView headerIcon = convertView.findViewById(R.id.drawer_list_view_image);
 
-        lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(menuItem.getItemName());
-        //headerIcon.setImageResource(menuItem.getImageId());
+
+        Picasso.with(mContext)
+                .load("file:///android_asset/"+menuItem.getImageId())
+                .fit().centerCrop()
+                //.resize(32, 32)
+                .into(headerIcon);
 
         return convertView;
     }
