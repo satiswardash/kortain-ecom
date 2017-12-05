@@ -17,7 +17,7 @@
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/textView2"
@@ -45,6 +45,7 @@
         android:background="@color/primaryColor"
         android:text="Shop now"
         android:textColor="@android:color/white"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:alpha="0.9"/>
 
 </RelativeLayout>
