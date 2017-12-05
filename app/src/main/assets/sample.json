@@ -1,0 +1,76 @@
+{
+  "flashOfferItemDetailsList": [
+    {
+      "description": "description",
+      "id": "id 1",
+      "title": "title",
+      "uri": "uri"
+    },
+    {
+      "description": "description",
+      "id": "id 2",
+      "title": "title",
+      "uri": "uri"
+    }
+  ],
+  "homeBannerItemDetailsList": [
+    {
+      "action": "action",
+      "description": "description",
+      "id": "id 1",
+      "title": "title",
+      "uri": "uri"
+    },
+    {
+      "action": "action",
+      "description": "description",
+      "id": "id 2",
+      "title": "title",
+      "uri": "uri"
+    },
+    {
+      "action": "action",
+      "description": "description",
+      "id": "id 3",
+      "title": "title",
+      "uri": "uri"
+    }
+  ],
+  "showcaseItemsList": [
+    {
+      "showcaseItemDetails": [
+        {
+          "description": "description",
+          "id": "id 1",
+          "title": "title",
+          "uri": "uri"
+        },
+        {
+          "description": "description",
+          "id": "id 2",
+          "title": "title",
+          "uri": "uri"
+        }
+      ],
+      "title": "title"
+    }
+  ],
+  "topCategoryList": [
+    {
+      "id": "id 1",
+      "title": "title"
+    },
+    {
+      "id": "id 2",
+      "title": "title"
+    },
+    {
+      "id": "id 3",
+      "title": "title"
+    },
+    {
+      "id": "id 4",
+      "title": "title"
+    }
+  ]
+}

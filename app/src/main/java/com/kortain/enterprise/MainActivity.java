@@ -19,10 +19,14 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.kortain.enterprise.adapters.BannerMainSectionsPagerAdapter;
 import com.kortain.enterprise.adapters.CategoryButtonsRecyclerAdapter;
 import com.kortain.enterprise.adapters.DrawerHomeExpandableListAdapter;
 import com.kortain.enterprise.adapters.BannerPromoImageRecyclerAdapter;
+import com.kortain.enterprise.datamodels.HomeActivityDataModel;
 import com.kortain.enterprise.models.DrawerMenuItem;
 import com.kortain.enterprise.utils.BadgeDrawable;
 import com.kortain.enterprise.utils.ScreenUtility;
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     BannerPromoImageRecyclerAdapter bannerPromoImageRecyclerAdapter;
     CategoryButtonsRecyclerAdapter categoryButtonsRecyclerAdapter;
 
+    public static HomeActivityDataModel dataModel = new HomeActivityDataModel();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,25 +65,17 @@ public class MainActivity extends AppCompatActivity
         init();
         prepareListData();
 
-        drawerHomeExpandableListAdapter = new DrawerHomeExpandableListAdapter(this, listView, listDataHeader, listDataChild);
-        listView.setAdapter(drawerHomeExpandableListAdapter);
+        App.reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataModel = dataSnapshot.getValue(HomeActivityDataModel.class);
+                load();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-
-        bannerPromoImageRecyclerAdapter = new BannerPromoImageRecyclerAdapter(this, Arrays.asList(App.images));
-        promoImageRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        promoImageRecyclerView.setAdapter(bannerPromoImageRecyclerAdapter);
-
-        categoryButtonsRecyclerAdapter = new CategoryButtonsRecyclerAdapter(this, Arrays.asList(App.categories));
-        category_buttons_recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        category_buttons_recyclerView.setAdapter(categoryButtonsRecyclerAdapter);
-
-        mBannerMainSectionsPagerAdapter = new BannerMainSectionsPagerAdapter(getSupportFragmentManager());
-        adjustContainerSize();
-        mViewPager.setClipToPadding(false);
-        mViewPager.setAdapter(mBannerMainSectionsPagerAdapter);
-
-        loadImagesToPromoImageContainers();
-
+            }
+        });
     }
 
     @Override
@@ -131,6 +129,27 @@ public class MainActivity extends AppCompatActivity
     /**
      * Helper Methods for Activity Main
      */
+    private void load() {
+        drawerHomeExpandableListAdapter = new DrawerHomeExpandableListAdapter(this, listView, listDataHeader, listDataChild);
+        listView.setAdapter(drawerHomeExpandableListAdapter);
+
+
+        bannerPromoImageRecyclerAdapter = new BannerPromoImageRecyclerAdapter(this, Arrays.asList(App.images));
+        promoImageRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        promoImageRecyclerView.setAdapter(bannerPromoImageRecyclerAdapter);
+
+        categoryButtonsRecyclerAdapter = new CategoryButtonsRecyclerAdapter(this, Arrays.asList(App.categories));
+        category_buttons_recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        category_buttons_recyclerView.setAdapter(categoryButtonsRecyclerAdapter);
+
+        mBannerMainSectionsPagerAdapter = new BannerMainSectionsPagerAdapter(getSupportFragmentManager());
+        adjustContainerSize();
+        mViewPager.setClipToPadding(false);
+        mViewPager.setAdapter(mBannerMainSectionsPagerAdapter);
+
+        loadImagesToPromoImageContainers();
+    }
+
     private void loadImagesToPromoImageContainers() {
         Picasso.with(this).load("https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Famerican%2Famerican_00006.jpeg?alt=media&token=f04051d3-ca12-49e6-8419-4226c94be274")
 

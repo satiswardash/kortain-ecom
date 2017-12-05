@@ -15,7 +15,7 @@
         android:adjustViewBounds="true"
         android:cropToPadding="true"
         android:scaleType="fitXY"
-        android:src="@drawable/american" />
+        android:src="@drawable/ic_launcher_background" />
 
     <Button
         android:id="@+id/promo_section01_image_label"

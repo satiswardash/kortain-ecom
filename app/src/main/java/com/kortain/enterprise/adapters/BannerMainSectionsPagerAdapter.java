@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.kortain.enterprise.App;
+import com.kortain.enterprise.MainActivity;
 import com.kortain.enterprise.fragments.BannerMainPlaceholderFragment;
 
 /**
@@ -31,7 +32,7 @@ public class BannerMainSectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return App.images.length;
+        return MainActivity.dataModel.getHomeBannerItemDetailsList().size();
     }
 
 
