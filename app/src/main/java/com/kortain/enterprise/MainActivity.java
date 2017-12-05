@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.kortain.enterprise.adapters.BannerMainSectionsPagerAdapter;
+import com.kortain.enterprise.adapters.CategoryButtonsRecyclerAdapter;
 import com.kortain.enterprise.adapters.DrawerHomeExpandableListAdapter;
 import com.kortain.enterprise.adapters.BannerPromoImageRecyclerAdapter;
 import com.kortain.enterprise.models.DrawerMenuItem;
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     ExpandableListView listView;
     ImageView promoImageView01;
     ImageView promoImageView02;
+    RecyclerView promoImageRecyclerView;
+    RecyclerView category_buttons_recyclerView;
 
     List<DrawerMenuItem> listDataHeader;
     HashMap<DrawerMenuItem, List<String>> listDataChild;
@@ -46,8 +49,7 @@ public class MainActivity extends AppCompatActivity
     BannerMainSectionsPagerAdapter mBannerMainSectionsPagerAdapter;
     DrawerHomeExpandableListAdapter drawerHomeExpandableListAdapter;
     BannerPromoImageRecyclerAdapter bannerPromoImageRecyclerAdapter;
-    BannerPromoImageRecyclerAdapter bannerPromoImageRecyclerAdapter1;
-    BannerPromoImageRecyclerAdapter bannerPromoImageRecyclerAdapter2;
+    CategoryButtonsRecyclerAdapter categoryButtonsRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,28 +62,19 @@ public class MainActivity extends AppCompatActivity
         drawerHomeExpandableListAdapter = new DrawerHomeExpandableListAdapter(this, listView, listDataHeader, listDataChild);
         listView.setAdapter(drawerHomeExpandableListAdapter);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_vew_container);
+
         bannerPromoImageRecyclerAdapter = new BannerPromoImageRecyclerAdapter(this, Arrays.asList(App.images));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(bannerPromoImageRecyclerAdapter);
+        promoImageRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        promoImageRecyclerView.setAdapter(bannerPromoImageRecyclerAdapter);
 
-        RecyclerView recyclerView1 = findViewById(R.id.recycler_vew_container1);
-        bannerPromoImageRecyclerAdapter1 = new BannerPromoImageRecyclerAdapter(this, Arrays.asList(App.images));
-        recyclerView1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(bannerPromoImageRecyclerAdapter1);
-
-        RecyclerView recyclerView2 = findViewById(R.id.recycler_vew_container2);
-        bannerPromoImageRecyclerAdapter2 = new BannerPromoImageRecyclerAdapter(this, Arrays.asList(App.images));
-        recyclerView2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(bannerPromoImageRecyclerAdapter2);
+        categoryButtonsRecyclerAdapter = new CategoryButtonsRecyclerAdapter(this, Arrays.asList(App.categories));
+        category_buttons_recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        category_buttons_recyclerView.setAdapter(categoryButtonsRecyclerAdapter);
 
         mBannerMainSectionsPagerAdapter = new BannerMainSectionsPagerAdapter(getSupportFragmentManager());
         adjustContainerSize();
         mViewPager.setClipToPadding(false);
         mViewPager.setAdapter(mBannerMainSectionsPagerAdapter);
-
-        promoImageView01 = findViewById(R.id.imageView441);
-        promoImageView02 = findViewById(R.id.imageView442);
 
         loadImagesToPromoImageContainers();
 
@@ -184,6 +177,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         listView = findViewById(R.id.drawer_list_view);
+        promoImageRecyclerView = findViewById(R.id.recycler_vew_container);
+        category_buttons_recyclerView = findViewById(R.id.category_container);
+        promoImageView01 = findViewById(R.id.imageView441);
+        promoImageView02 = findViewById(R.id.imageView442);
     }
 
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {

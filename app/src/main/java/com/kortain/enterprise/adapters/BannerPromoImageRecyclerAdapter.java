@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.kortain.enterprise.R;
+import com.kortain.enterprise.utils.ScreenUtility;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -60,6 +61,7 @@ public class BannerPromoImageRecyclerAdapter extends RecyclerView.Adapter<Banner
         public void bind(int position) {
             Picasso.with(mContext)
                     .load(images[position])
+                    .resize((int)ScreenUtility.getInstance(mContext).getWidth(), (int) ((int)ScreenUtility.getInstance(mContext).getHeight()/2))
                     .into(imageView);
         }
     }
