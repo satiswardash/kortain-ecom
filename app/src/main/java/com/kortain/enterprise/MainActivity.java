@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity
 
         DrawerMenuItem item1 = new DrawerMenuItem();
         item1.setItemName("American");
-        item1.setImageId("american.png");
+        item1.setImageId("america.png");
         listDataHeader.add(item1);
 
         DrawerMenuItem item2 = new DrawerMenuItem();
