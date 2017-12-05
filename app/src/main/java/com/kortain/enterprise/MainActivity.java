@@ -1,21 +1,12 @@
 package com.kortain.enterprise;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,126 +15,76 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.Toast;
 
-import com.kortain.enterprise.adapters.DrawerExpandableListAdapter;
-import com.kortain.enterprise.adapters.HomeActivityImageRecyclerAdapter;
+import com.kortain.enterprise.adapters.BannerMainSectionsPagerAdapter;
+import com.kortain.enterprise.adapters.DrawerHomeExpandableListAdapter;
+import com.kortain.enterprise.adapters.BannerPromoImageRecyclerAdapter;
 import com.kortain.enterprise.models.DrawerMenuItem;
 import com.kortain.enterprise.utils.BadgeDrawable;
-import com.kortain.enterprise.utils.ScreenSize;
 import com.kortain.enterprise.utils.ScreenUtility;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    ViewPager mViewPager;
+    ExpandableListView listView;
+    ImageView promoImageView01;
+    ImageView promoImageView02;
+
     List<DrawerMenuItem> listDataHeader;
     HashMap<DrawerMenuItem, List<String>> listDataChild;
-    public static final String[] images = {"https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Fbanners%2Fbanners_00008.jpeg?alt=media&token=eef127a4-dad7-4cbc-92e1-9d2a38bda2cd", "https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Fbanners%2Fbanner_00002.jpeg?alt=media&token=bbb3fbee-9340-47ff-b504-746279aaba38", "https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Fbanners%2Fbanner_00003.jpeg?alt=media&token=63fb3208-2244-498a-8c5e-308cc02781ac", "https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Fbanners%2Fbanner_00004.jpeg?alt=media&token=94c3a38c-9b7f-409a-a401-70a614fe27c6", "https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Fbanners%2Fbanner_00005.jpeg?alt=media&token=0916158f-bc87-4213-8fee-a39d0bd4dd00", "https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Fbanners%2Fbanner_00006.jpeg?alt=media&token=0d77c75f-68b2-4c2e-8916-31669e30f133", "https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Fbanners%2Fbanner_00007.jpeg?alt=media&token=c5fb225b-1e23-4a62-9daf-14a34b16c0b8"};
 
-    private MainActivity.SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
+    BannerMainSectionsPagerAdapter mBannerMainSectionsPagerAdapter;
+    DrawerHomeExpandableListAdapter drawerHomeExpandableListAdapter;
+    BannerPromoImageRecyclerAdapter bannerPromoImageRecyclerAdapter;
+    BannerPromoImageRecyclerAdapter bannerPromoImageRecyclerAdapter1;
+    BannerPromoImageRecyclerAdapter bannerPromoImageRecyclerAdapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         init();
-
         prepareListData();
-        ExpandableListView listView = findViewById(R.id.drawer_list_view);
-        DrawerExpandableListAdapter adapter =
-                new DrawerExpandableListAdapter(this, listView, listDataHeader, listDataChild);
 
-        listView.setAdapter(adapter);
+        drawerHomeExpandableListAdapter = new DrawerHomeExpandableListAdapter(this, listView, listDataHeader, listDataChild);
+        listView.setAdapter(drawerHomeExpandableListAdapter);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_vew_container);
-        RecyclerView recyclerView1 = findViewById(R.id.recycler_vew_container1);
-        RecyclerView recyclerView2 = findViewById(R.id.recycler_vew_container2);
-
-
-        HomeActivityImageRecyclerAdapter recyclerAdapter =
-                new HomeActivityImageRecyclerAdapter(this, Arrays.asList(images));
-
+        bannerPromoImageRecyclerAdapter = new BannerPromoImageRecyclerAdapter(this, Arrays.asList(App.images));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setAdapter(bannerPromoImageRecyclerAdapter);
 
-        HomeActivityImageRecyclerAdapter recyclerAdapter1 =
-                new HomeActivityImageRecyclerAdapter(this, Arrays.asList(images));
+        RecyclerView recyclerView1 = findViewById(R.id.recycler_vew_container1);
+        bannerPromoImageRecyclerAdapter1 = new BannerPromoImageRecyclerAdapter(this, Arrays.asList(App.images));
         recyclerView1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(recyclerAdapter1);
+        recyclerView.setAdapter(bannerPromoImageRecyclerAdapter1);
 
-        HomeActivityImageRecyclerAdapter recyclerAdapter2 =
-                new HomeActivityImageRecyclerAdapter(this, Arrays.asList(images));
-
+        RecyclerView recyclerView2 = findViewById(R.id.recycler_vew_container2);
+        bannerPromoImageRecyclerAdapter2 = new BannerPromoImageRecyclerAdapter(this, Arrays.asList(App.images));
         recyclerView2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerView.setAdapter(recyclerAdapter2);
+        recyclerView.setAdapter(bannerPromoImageRecyclerAdapter2);
 
-
-
-        mSectionsPagerAdapter = new MainActivity.SectionsPagerAdapter(getSupportFragmentManager());
-
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        Log.i("screensize", "onCreate: height");
-        Log.i("screensize", "onCreate: width");
-        mViewPager.getLayoutParams().height = (int) (ScreenUtility.getInstance(this).getHeight()/2.5);
-        mViewPager.getLayoutParams().width= (int) ScreenUtility.getInstance(this).getWidth();
-
-        if(ScreenUtility.getInstance(this).getDensity() < 2){
-            mViewPager.setPadding(6, 0, 6, 0);
-            mViewPager.setPageMargin(-14);
-            Toast.makeText(this, ScreenUtility.getInstance(this).getDensity()+"", Toast.LENGTH_SHORT).show();
-        }
-        else if(ScreenUtility.getInstance(this).getDensity() >= 2 && ScreenUtility.getInstance(this).getDensity() < 3){
-            mViewPager.setPadding(10, 0, 10, 0);
-            mViewPager.setPageMargin(-35);
-            Toast.makeText(this, ScreenUtility.getInstance(this).getDensity()+"", Toast.LENGTH_SHORT).show();
-        }
-        else if(ScreenUtility.getInstance(this).getDensity() >= 3){
-            mViewPager.setPadding(10, 0, 10, 0);
-            mViewPager.setPageMargin(-45);
-            Toast.makeText(this, ScreenUtility.getInstance(this).getDensity()+"", Toast.LENGTH_SHORT).show();
-        }
-
+        mBannerMainSectionsPagerAdapter = new BannerMainSectionsPagerAdapter(getSupportFragmentManager());
+        adjustContainerSize();
         mViewPager.setClipToPadding(false);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(mBannerMainSectionsPagerAdapter);
 
-        ImageView iv1 = findViewById(R.id.imageView441);
-        ImageView iv2 = findViewById(R.id.imageView442);
+        promoImageView01 = findViewById(R.id.imageView441);
+        promoImageView02 = findViewById(R.id.imageView442);
 
-        Picasso.with(this).load("https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Famerican%2Famerican_00006.jpeg?alt=media&token=f04051d3-ca12-49e6-8419-4226c94be274")
+        loadImagesToPromoImageContainers();
 
-                .into(iv1);
-        Picasso.with(this).load("https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Fitalian%2Fitalian_00005.jpg?alt=media&token=029b6035-5c89-4580-aaf4-5e3fd1d63242")
-
-                .into(iv2);
-
-    }
-
-    private void init() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -192,6 +133,57 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Helper Methods for Activity Main
+     */
+    private void loadImagesToPromoImageContainers() {
+        Picasso.with(this).load("https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Famerican%2Famerican_00006.jpeg?alt=media&token=f04051d3-ca12-49e6-8419-4226c94be274")
+
+                .into(promoImageView01);
+        Picasso.with(this).load("https://firebasestorage.googleapis.com/v0/b/kortain-ecommerce-application.appspot.com/o/images%2Fitalian%2Fitalian_00005.jpg?alt=media&token=029b6035-5c89-4580-aaf4-5e3fd1d63242")
+
+                .into(promoImageView02);
+    }
+
+    private void adjustContainerSize() {
+        // Set up the ViewPager with the sections drawerHomeExpandableListAdapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.getLayoutParams().height = (int) (ScreenUtility.getInstance(this).getHeight()/2.5);
+        mViewPager.getLayoutParams().width= (int) ScreenUtility.getInstance(this).getWidth();
+
+        if(ScreenUtility.getInstance(this).getDensity() < 2){
+            mViewPager.setPadding(6, 0, 6, 0);
+            mViewPager.setPageMargin(-14);
+            Toast.makeText(this, ScreenUtility.getInstance(this).getDensity()+"", Toast.LENGTH_SHORT).show();
+        }
+        else if(ScreenUtility.getInstance(this).getDensity() >= 2 && ScreenUtility.getInstance(this).getDensity() < 3){
+            mViewPager.setPadding(10, 0, 10, 0);
+            mViewPager.setPageMargin(-35);
+            Toast.makeText(this, ScreenUtility.getInstance(this).getDensity()+"", Toast.LENGTH_SHORT).show();
+        }
+        else if(ScreenUtility.getInstance(this).getDensity() >= 3){
+            mViewPager.setPadding(10, 0, 10, 0);
+            mViewPager.setPageMargin(-45);
+            Toast.makeText(this, ScreenUtility.getInstance(this).getDensity()+"", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void init() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        listView = findViewById(R.id.drawer_list_view);
     }
 
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
@@ -271,77 +263,4 @@ public class MainActivity extends AppCompatActivity
         listDataChild.put(listDataHeader.get(4), heading5);
 
     }
-
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static MainActivity.PlaceholderFragment newInstance(int sectionNumber) {
-            MainActivity.PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-
-
-            Log.i("ViewPagerInflate", "onCreateView: "+getArguments().getInt(ARG_SECTION_NUMBER));
-
-            int position = getArguments().getInt(ARG_SECTION_NUMBER);
-
-
-
-            View rootView = inflater.inflate(R.layout.fragment_image_view_pager, container, false);
-            ImageView imageView = rootView.findViewById(R.id.section_imageView2);
-            Picasso.with(getContext()).load(images[position-1])
-                    .resize((int) ScreenUtility.getInstance(getActivity()).getWidth(), (int) ((int) ScreenUtility.getInstance(getActivity()).getHeight()/2.5))
-                    .into(imageView);
-            return rootView;
-        }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return MainActivity.PlaceholderFragment.newInstance(position+1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return images.length;
-        }
-
-
-    }
-
 }

@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.kortain.enterprise.adapters.AuthSectionsPageAdapter;
+import com.kortain.enterprise.adapters.AuthMainSectionsPagerAdapter;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
@@ -19,7 +19,7 @@ public class AuthenticationActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private AuthSectionsPageAdapter mSectionsPagerAdapter;
+    private AuthMainSectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -33,11 +33,11 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        // Create the adapter that will return a fragment for each of the three
+        // Create the drawerHomeExpandableListAdapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new AuthSectionsPageAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new AuthMainSectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
+        // Set up the ViewPager with the sections drawerHomeExpandableListAdapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
