@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
@@ -12,16 +13,17 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:background="@android:color/transparent"
-        app:elevation="0dp">
+        android:paddingTop="@dimen/appbar_padding_top"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay">
@@ -34,9 +36,9 @@
                 android:fontFamily="cursive"
                 android:gravity="center"
                 android:text="The Foodbook"
-                android:textStyle="bold|italic"
                 android:textColor="@color/colorAccent"
-                android:textSize="38sp" />
+                android:textSize="38sp"
+                android:textStyle="bold|italic" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -44,9 +46,9 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextColor="@android:color/darker_gray"
             app:tabIndicatorColor="@color/colorAccent"
-            app:tabSelectedTextColor="@color/primaryColor">
+            app:tabSelectedTextColor="@color/primaryColor"
+            app:tabTextColor="@android:color/darker_gray">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem"
@@ -65,8 +67,12 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar" />
 
-</android.support.design.widget.CoordinatorLayout>
+</android.support.constraint.ConstraintLayout>

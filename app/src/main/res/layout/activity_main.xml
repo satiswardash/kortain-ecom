@@ -19,7 +19,7 @@
         android:fitsSystemWindows="false"
         tools:openDrawer="left">
 
-        <include
+       <include
             layout="@layout/content_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

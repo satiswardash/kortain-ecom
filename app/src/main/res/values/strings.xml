@@ -30,6 +30,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="search_hint">eg. italian pasta</string>
+    <string name="title_activity_image_view_pager">ImageViewPagerActivity</string>
 
 
 </resources>
