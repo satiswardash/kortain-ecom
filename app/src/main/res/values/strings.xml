@@ -32,5 +32,9 @@
     <string name="search_hint">eg. italian pasta</string>
     <string name="title_activity_image_view_pager">ImageViewPagerActivity</string>
 
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="splash_screen_button">Dummy Button</string>
+    <string name="splash_screen_content">The Foodbook</string>
+
 
 </resources>

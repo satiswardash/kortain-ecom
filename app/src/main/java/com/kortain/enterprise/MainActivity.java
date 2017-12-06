@@ -1,9 +1,12 @@
 package com.kortain.enterprise;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,14 +16,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kortain.enterprise.adapters.BannerMainSectionsPagerAdapter;
 import com.kortain.enterprise.adapters.CategoryButtonsRecyclerAdapter;
@@ -40,6 +51,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "Firebase_main";
     ViewPager mViewPager;
     ExpandableListView listView;
     ImageView promoImageView01;
@@ -55,7 +67,23 @@ public class MainActivity extends AppCompatActivity
     BannerPromoImageRecyclerAdapter bannerPromoImageRecyclerAdapter;
     CategoryButtonsRecyclerAdapter categoryButtonsRecyclerAdapter;
 
+    public static final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     public static HomeActivityDataModel dataModel = new HomeActivityDataModel();
+
+    public static MainActivity getReference = new MainActivity();
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mAuth.signOut();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +92,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         init();
         prepareListData();
-
-        App.reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataModel = dataSnapshot.getValue(HomeActivityDataModel.class);
-                load();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        load();
     }
 
     @Override
@@ -86,6 +103,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+
     }
 
     @Override

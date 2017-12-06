@@ -6,4 +6,6 @@
     <color name="primaryTextColor">#000000</color>
     <color name="colorAccent">#464646</color>
     <color name="colorCardBackground">#EEEEEE</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
