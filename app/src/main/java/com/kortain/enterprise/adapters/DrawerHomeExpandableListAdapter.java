@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -85,15 +86,17 @@ public class DrawerHomeExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView lblListHeader = convertView.findViewById(R.id.drawer_list_view_header);
-        final ImageView headerIcon = convertView.findViewById(R.id.drawer_list_view_image);
+        //final ImageView headerIcon = convertView.findViewById(R.id.drawer_list_view_image);
 
         lblListHeader.setText(menuItem.getItemName());
 
-        Picasso.with(mContext)
+        /*Picasso.with(mContext)
                 .load("file:///android_asset/"+menuItem.getImageId())
                 .fit().centerCrop()
                 //.resize(32, 32)
-                .into(headerIcon);
+                .into(headerIcon);*/
+
+
 
         return convertView;
     }

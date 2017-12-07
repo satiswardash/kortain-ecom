@@ -3,9 +3,11 @@ package com.kortain.enterprise;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,8 +40,10 @@ import com.kortain.enterprise.adapters.BannerMainSectionsPagerAdapter;
 import com.kortain.enterprise.adapters.CategoryButtonsRecyclerAdapter;
 import com.kortain.enterprise.adapters.DrawerHomeExpandableListAdapter;
 import com.kortain.enterprise.adapters.BannerPromoImageRecyclerAdapter;
+import com.kortain.enterprise.adapters.DrawerHomeIconListAdapter;
 import com.kortain.enterprise.datamodels.HomeActivityDataModel;
 import com.kortain.enterprise.models.DrawerMenuItem;
+import com.kortain.enterprise.services.MyFirebaseMessagingService;
 import com.kortain.enterprise.utils.BadgeDrawable;
 import com.kortain.enterprise.utils.ScreenUtility;
 import com.squareup.picasso.Picasso;
@@ -91,6 +96,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+
+        ListView frameIconListView = findViewById(R.id.drawer_icon_list_view);
+        DrawerHomeIconListAdapter frameIconAdapter = new DrawerHomeIconListAdapter(this, App.frameIcons);
+        frameIconListView.setAdapter(frameIconAdapter);
+
         prepareListData();
         load();
     }
@@ -113,7 +123,12 @@ public class MainActivity extends AppCompatActivity
 
         MenuItem itemCart = menu.findItem(R.id.action_notification);
         LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
-        setBadgeCount(this, icon, "9");
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int count = preferences.getInt(MyFirebaseMessagingService.NOTIFICATION_BADGE_COUNTER_KEY, MODE_PRIVATE);
+        if(count > 0 ){
+            setBadgeCount(this, icon, count+"");
+        }
 
         return true;
     }

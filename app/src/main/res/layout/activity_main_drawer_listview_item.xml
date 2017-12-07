@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/drawer_list_view_item"
@@ -13,6 +13,9 @@
         android:text="List Item 1"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:gravity="center"
+        android:gravity="left"
+        android:layout_marginLeft="76dp"
         android:fontFamily="cursive"/>
+
+
 </LinearLayout>
